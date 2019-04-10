@@ -27,7 +27,7 @@
         <textarea id="exampleCheck1" name="content"></textarea>
         <label class="form-check-label" for="exampleCheck1"></label>
     </div>
-
+    <input type="hidden" name="post_id" value="{{$post->id}}"/>
     <button type="submit" class="btn btn-primary">Send comment</button>
 </form>
 
