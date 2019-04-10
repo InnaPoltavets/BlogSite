@@ -25,8 +25,7 @@ class CommentsController extends Controller
         $data = [
 
             $comment->content = $request->get('content'),
-            $comment->posts_id = $_SERVER['REQUEST_URI'],
-                //НЕ МОГУ ПОНЯТЬ, КАК СЮДА ЗАКИНУТЬ ID ТЕКУЩЕГО ПОСТА, КОТОРЫЙ КОММЕНТИМ,
+            $comment->posts_id = $request->get('post_id'),
 
             $comment->users_id = $user['id']];
 
