@@ -1,6 +1,5 @@
 @extends('layout')
 @section('content')
-
 <form action="{{route('save_page')}}" method="post">
   {{ csrf_field() }}
     <div class="form-group">
