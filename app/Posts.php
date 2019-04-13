@@ -4,6 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Posts
+ * @package App
+ *
+ * @property int $id
+ * @property string $title
+ * @property int $priority
+ */
 class Posts extends Model
 {
 

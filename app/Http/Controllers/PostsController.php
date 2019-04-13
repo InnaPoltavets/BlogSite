@@ -20,8 +20,6 @@ class PostsController extends Controller
         $categories = Categories::all();
         $user = Auth::user();
 
-
-        
         return view('posts.index', ['priorPosts'=>$priorPosts, 'posts'=>$posts, 'categories'=>$categories, 'user'=>$user]);
     }
 
@@ -33,8 +31,6 @@ class PostsController extends Controller
         $user = Auth::user();
         return view('posts.show', ['post'=>$post, 'categories'=>$categories, 'user'=>$user]);
     }
-
-
     
     public function create()
     {
@@ -46,7 +42,6 @@ class PostsController extends Controller
     public function save(Request $request)
     {
         $user = Auth::user();
-
        
         $validator = Validator::make($request->all(), 
                 [
@@ -61,6 +56,9 @@ class PostsController extends Controller
                     $postNew->content = $request->get('content'),
                     $postNew->categories_id = $request->get('categories_id'),
                     $postNew->users_id = $user['id']];
+                    $postNew->priority = 0;
+                    $postNew->comments_id = 0;
+                    $postNew->short_content = '';
 
 
         $postNew->save($data);
@@ -71,10 +69,9 @@ class PostsController extends Controller
     public function getPostsByCategory($id)
     {
         $categories = Categories::all();
-        $category = Categories::find($id);
-        $categorizedPosts = Posts::where('categories_id', $id)->get();
+        $category = Categories::find($id)->load('posts');
         $user = Auth::user();
-        return view('posts.postsbycat', ['categories'=>$categories, 'categorizedPosts'=>$categorizedPosts, 'category'=>$category, 'user'=>$user]);
+        return view('posts.postsbycat', ['categories'=>$categories, 'categorizedPosts'=>$category->posts, 'category'=>$category, 'user'=>$user]);
     }
 
     public function showByAuthor($id)
